@@ -1,0 +1,7 @@
+*.swp
+marstopoLG.RND
+*.vim
+.log
+/tags
+
+/orbitc
