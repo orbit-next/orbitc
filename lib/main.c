@@ -5,7 +5,7 @@
 #include <sys/time.h>
 
 
-#include "qb.h"
+#include "../include/qb.h"
 
 #define MIN2(a, b) ((a) < (b) ? (a) : (b))
 
@@ -627,40 +627,36 @@ QBFILE *qb_open(QBENV *env, QBSTR path, char *mode) {
 }
 
 QBFILE *qb_open_reclen_cstr(QBENV *env, char *path, char *mode, int32_t reclen) {
-   char *cmode;
-   int32_t flags;
-   assert(mode[1] == '\0');
-   switch (mode[0]) {
-     case 'R':
-       cmode = "r+";
-       flags = QB_FILE_READABLE | QB_FILE_WRITABLE | QB_FILE_SEEKABLE;
-       break;
-     case 'I':
-       cmode = "r";
-       flags = QB_FILE_READABLE;
-       break;
-     case 'O':
-       cmode = "w";
-       flags = QB_FILE_WRITABLE;
-       break;
-     default:
-       assert(FALSE);
-   }
-   FILE *cfile = fopen(path, cmode);
-#ifdef nooutput
-#elif humanreadable
-   if (cfile == NULL) {
-     fprintf(stderr, "Failed to open file \"%s\"\n", path);
-   }
-#endif
-   assert(cfile != NULL);
+  char *cmode;
+  int32_t flags;
+  assert(mode[1] == '\0');
+  switch (mode[0]) {
+    case 'R':
+      cmode = "r+";
+      flags = QB_FILE_READABLE | QB_FILE_WRITABLE | QB_FILE_SEEKABLE;
+      break;
+    case 'I':
+      cmode = "r";
+      flags = QB_FILE_READABLE;
+      break;
+    case 'O':
+      cmode = "w";
+      flags = QB_FILE_WRITABLE;
+      break;
+    default:
+      assert(FALSE);
+  }
+  FILE *cfile = fopen(path, cmode);
+  if (cfile == NULL) {
+    fprintf(stderr, "Failed to open file \"%s\"\n", path);
+    assert(FALSE);
+  }
+  QBFILE *f = (QBFILE *)malloc(sizeof(QBFILE));
+  f->file = cfile;
+  f->flags = flags;
+  f->reclen = reclen;
 
-   QBFILE *f = (QBFILE *)malloc(sizeof(QBFILE));
-   f->file = cfile;
-   f->flags = flags;
-   f->reclen = reclen;
-
-   return f;
+  return f;
 }
 
 QBFILE *qb_open_reclen(QBENV *env, QBSTR path, char *mode, int32_t reclen) {

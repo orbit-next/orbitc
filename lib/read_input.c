@@ -1,4 +1,4 @@
-#include "qb.h"
+#include "../include/qb.h"
 #include <sys/types.h>
 
 // Most of this file is from the freebasic source

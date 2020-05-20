@@ -1,4 +1,4 @@
-#include "qb.h"
+#include "../include/qb.h"
 
 static int32_t ERR = 0, ERL = 0;
 

@@ -160,8 +160,8 @@ typedef union {
   double f64;
 } QB_PRINT_UNION;
 
-#define QB_PRINTUSING_TYPE_FLOAT (8)
-#define QB_PRINTUSING_TYPE_DOUBLE (9)
+#define QB_PRINTUSING_TYPE_FLOAT 8
+#define QB_PRINTUSING_TYPE_DOUBLE 9
 
 // an item in a stack of things to print
 typedef struct _QB_PRINTUSING_ITEM {
