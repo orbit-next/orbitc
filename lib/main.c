@@ -1043,7 +1043,7 @@ void qb_paint(QBENV *env, int32_t x, int32_t y, int32_t paint_color, int32_t bor
   );
 #else
   fputc(0x94, env->output);
-  fwrite((void *)(&y), 1, 4, env->output);
+  fwrite((void *)(&x), 1, 4, env->output);
   fwrite((void *)(&y), 1, 4, env->output);
   fwrite((void *)(&paint_color), 1, 4, env->output);
   fwrite((void *)(&border_color), 1, 4, env->output);
